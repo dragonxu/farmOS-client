@@ -514,11 +514,7 @@
           controls: (defaults) => defaults.filter(def => def.constructor.name === 'Attribution'),
           interactions: false,
         }"
-        :wkt="[{
-          title: 'movement',
-          wkt: logs[currentLogIndex].movement.data.geometry,
-          color: 'orange',
-        }]"
+        :wkt=mapLayers
         :geojson="{
           title: 'areas',
           url: areaGeoJSON,
@@ -944,6 +940,17 @@ export default {
     imageUrls() {
       return this.logs[this.currentLogIndex].images.data
         .filter(img => typeof img === 'string');
+    },
+    /*
+    Assemble layers for display
+    */
+    mapLayers() {
+      const movement = {
+        title: 'movement',
+        wkt: this.logs[this.currentLogIndex].movement.data.geometry,
+        color: 'orange',
+      };
+      return [movement];
     },
   },
 
